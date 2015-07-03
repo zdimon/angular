@@ -1,0 +1,12 @@
+{
+  "name": "angular-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.0.8",
+    "restangular": "~1.5.1",
+    "angular-ui-router": "0.2.0",
+    "underscore": "~1.8.3",
+    "jquery": "~2.0.3"
+  }
+
+}
