@@ -11,7 +11,13 @@
 
                 url: "/",
                 templateUrl: "/static/templates/_index.html",
-                //controller: "IndexController"
+                controller: function($scope, Restangular) {
+                    $scope.items = ["A", "List", "Of", "Items"];
+                    var baseAccounts = Restangular.all('accounts');
+                    baseAccounts.getList().then(function(accounts) {
+                      $scope.allAccounts = accounts;
+                    });
+                  }
             })
 
           
