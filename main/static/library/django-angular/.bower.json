@@ -1,0 +1,14 @@
+{
+  "name": "django-angular",
+  "homepage": "https://github.com/jrief/django-angular",
+  "version": "0.7.15",
+  "_release": "0.7.15",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.7.15",
+    "commit": "c0ee9905bd83f374042891a2629b727522ad5039"
+  },
+  "_source": "https://github.com/jrief/django-angular.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/jrief/django-angular.git"
+}

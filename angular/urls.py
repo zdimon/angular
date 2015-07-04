@@ -16,8 +16,17 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from main.views import IndexView
+from authentication.views import AuthView
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='home'),
+    url(r'^auth/$', AuthView.as_view(), name='auth'),
+
+    #######API##############
+    url(r'^api/login/$', 'authentication.views.login'),
+    url(r'^api/logout/$', 'authentication.views.logout'),
+    url(r'^api/register/$', 'authentication.views.registration'),
+    #########################
+
     url(r'^admin/', include(admin.site.urls)),
 ]

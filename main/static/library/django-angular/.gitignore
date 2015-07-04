@@ -1,0 +1,15 @@
+*.pyc
+*.egg-info
+*.coverage
+*~
+.tmp*
+.DS_Store
+.idea/
+cdncache/
+dist/
+htmlcov/
+docs/_build/
+node_modules/
+bower_components/
+build/
+examples/test.sqlite
