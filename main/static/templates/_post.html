@@ -1,0 +1,25 @@
+
+<div class="nav"> <a href="#/topic/[[ post.topic ]]/page/1"> Назад </a> </div>
+
+<h2> [[ post.title ]] </h2>
+
+<p> 
+   [[ post.content ]]
+</p>
+
+
+
+<div class="well" ng-repeat="c in comments.results" > 
+   <strong> [[c.author]] </strong>
+   <p> [[c.content]] </p>
+   <p> [[c.created_at]] </p>
+</div>
+
+
+<ul class="pagination" style="margin: 5px 0 10px 0">
+    <li ng-if="comments.previous"><a href="#post/[[post.id]][[comments.previous]]">Previous</a></li>
+    <li> <a>[[comments.current]]</a> </li>
+    <li ng-if="comments.next"><a href="#post/[[post.id]][[comments.next]]">Next</a></li>
+</ul>
+
+

@@ -42,19 +42,31 @@
                 })
 
             .state('topic', {
-                url: "/topic/:id",
+                url: "/topic/:id/page/:page",
                 templateUrl: "/static/templates/_topic.html",
                 controller: function($scope, Restangular, $stateParams, TopicResource, PostsResource) {
                         var topic = TopicResource.get({id:$stateParams.id}, function() {
                             $scope.topic = topic;
-                            console.log('dddd'+topic.id);
-                            //PostsResource.posts(topic.id).success(function(result) {
-                            //    $scope.posts = result
-                            //    console.log($scope.result);
-                            //});
+                            PostsResource.posts(topic.id,$stateParams.page).success(function(result) {
+                                $scope.posts = result;
+                                console.log($stateParams.page);
+                            });
                         });                       
                   }
-                })           
+                })   
+
+            .state('post', {
+                url: "/post/:id/page/:page",
+                templateUrl: "/static/templates/_post.html",
+                controller: function($scope, Restangular, $stateParams, TopicResource, PostResource, CommentResource) {
+                        var post = PostResource.get({id:$stateParams.id}, function() {
+                            $scope.post = post;
+                            CommentResource.comments(post.id,$stateParams.page).success(function(result) {
+                                $scope.comments = result;
+                            });                            
+                        });                       
+                  }
+                })         
          
 
 

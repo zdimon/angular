@@ -9,3 +9,13 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField(blank=True, verbose_name='Content')
     topic = models.ForeignKey(Topic, verbose_name='Topic')
+    def __unicode__(self):
+        return '%s #%s' % (self.title, self.id)
+
+
+class Comment(models.Model):
+    author = models.CharField(max_length=50, verbose_name='Author')
+    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(blank=True, verbose_name='Content')
+    post = models.ForeignKey(Post, verbose_name='Topic')
+

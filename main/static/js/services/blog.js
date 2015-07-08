@@ -7,7 +7,7 @@
   angular
     .module('AngularApp')
     .factory('PostResource', function(djResource){
-        return djResource('/api/posts/:id', {'id': "@id"});
+        return djResource('/api/post/:id', {'id': "@id"});
     });
 
   angular
@@ -19,13 +19,21 @@
 
   angular
     .module('AngularApp')
-    .factory('PostsResource', function(){
-            return {'posts': function(topic_id){
-                return $http.post('/api/posts/'+topic_id, {});
+    .factory('PostsResource',  function($http) {
+            return {'posts': function(topic_id,page){
+                return $http.get('/api/posts/'+topic_id+'?page='+page, {});
             }}
-        }
+        
     });
 
+  angular
+    .module('AngularApp')
+    .factory('CommentResource',  function($http) {
+            return {'comments': function(post_id,page){
+                return $http.get('/api/comment/'+post_id+'?page='+page, {});
+            }}
+        
+    });
 
 
 

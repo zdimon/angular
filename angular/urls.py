@@ -20,7 +20,7 @@ from authentication.views import AuthView
 
 from rest_framework import routers, serializers, viewsets
 from main.views import IndexView, PageViewSet
-from blog.views import PostViewSet, TopicViewSet, ToicPostsList
+from blog.views import PostViewSet, TopicViewSet, ToicPostsList, CommentPostsList
 
 router = routers.DefaultRouter()
 router.register(r'page', PageViewSet)
@@ -40,5 +40,6 @@ urlpatterns = [
 
     url(r'^api/', include(router.urls)),
     url(r'^api/posts/(?P<topic_id>\d+)$', ToicPostsList.as_view()),
+    url(r'^api/comment/(?P<post_id>\d+)$', CommentPostsList.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 ]

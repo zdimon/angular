@@ -1,5 +1,13 @@
-<p style="color: red">Ангуляровский шаблон</a>
+<h2>[[ topic.name ]]</h2>
 
-<p> ddd </p>
+<div class="well" ng-repeat="p in posts.results" > 
+   <a href="#/post/[[p.id]]/page/1">[[ p.title ]] </a>
+</div>
+
+<ul class="pagination" style="margin: 5px 0 10px 0">
+    <li ng-if="posts.previous"><a href="#topic/[[topic.id]][[posts.previous]]">Previous</a></li>
+    <li> <a>[[posts.current]]</a> </li>
+    <li ng-if="posts.next"><a href="#topic/[[topic.id]][[posts.next]]">Next</a></li>
+</ul>
 
 
