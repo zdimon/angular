@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'authentication',
     'main',
     'djangular',
+    'rest_framework',
+    'blog'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,7 +106,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'authentication.Account'
+#AUTH_USER_MODEL = 'authentication.Account'
+
+
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 3
+}
+
 
 
 

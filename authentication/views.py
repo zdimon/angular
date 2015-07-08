@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth.models import User
 
 class AuthView(FormView):
     template_name = 'main/auth-form.html'
@@ -17,7 +18,7 @@ def login(request):
     context = { }
     out = {
         'status': 0,
-        'message': 'ok',
+        'message': 'login ok',
     }
     return HttpResponse(json.dumps(out), content_type='application/json')   
 
@@ -31,11 +32,21 @@ def logout(request):
     }
     return HttpResponse(json.dumps(out), content_type='application/json') 
 
-@csrf_exempt
+
 def registration(request):
+    data = json.loads(request.body)
+    try: 
+        User.objects.get(username=data['username'])
+        return HttpResponse(json.dumps({'status': 1, 'message': 'This user already exists!'}), content_type='application/json') 
+    except:
+        u = User()
+        u.username = data['username']
+        u.email = data['email']
+        u.set_password(data['password1'])
+        u.save()
     context = { }
     out = {
-        'status': 0,
+        'status': 1,
         'message': 'ok',
     }
     return HttpResponse(json.dumps(out), content_type='application/json') 

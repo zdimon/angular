@@ -15,8 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from main.views import IndexView
+
 from authentication.views import AuthView
+
+from rest_framework import routers, serializers, viewsets
+from main.views import IndexView, PageViewSet
+from blog.views import PostViewSet, TopicViewSet, ToicPostsList
+
+router = routers.DefaultRouter()
+router.register(r'page', PageViewSet)
+router.register(r'post', PostViewSet)
+router.register(r'topic', TopicViewSet)
+
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='home'),
@@ -25,8 +35,10 @@ urlpatterns = [
     #######API##############
     url(r'^api/login/$', 'authentication.views.login'),
     url(r'^api/logout/$', 'authentication.views.logout'),
-    url(r'^api/register/$', 'authentication.views.registration'),
+    url(r'^registration/$', 'authentication.views.registration'),
     #########################
 
+    url(r'^api/', include(router.urls)),
+    url(r'^api/posts/(?P<topic_id>\d+)$', ToicPostsList.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 ]
