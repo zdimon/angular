@@ -20,12 +20,13 @@ from authentication.views import AuthView
 
 from rest_framework import routers, serializers, viewsets
 from main.views import IndexView, PageViewSet
-from blog.views import PostViewSet, TopicViewSet, ToicPostsList, CommentPostsList
+from blog.views import PostViewSet, TopicViewSet, ToicPostsList, CommentPostsList, CommentFormView, CommentViewSet
 
 router = routers.DefaultRouter()
 router.register(r'page', PageViewSet)
 router.register(r'post', PostViewSet)
 router.register(r'topic', TopicViewSet)
+router.register(r'comment', CommentViewSet)
 
 
 urlpatterns = [
@@ -39,7 +40,12 @@ urlpatterns = [
     #########################
 
     url(r'^api/', include(router.urls)),
+
+    #############BLOG####################
     url(r'^api/posts/(?P<topic_id>\d+)$', ToicPostsList.as_view()),
     url(r'^api/comment/(?P<post_id>\d+)$', CommentPostsList.as_view()),
+    url(r'^api/comments/form$', CommentFormView.as_view()),
+    #####################################
+    
     url(r'^admin/', include(admin.site.urls)),
 ]

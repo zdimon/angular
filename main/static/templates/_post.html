@@ -1,5 +1,5 @@
 
-<div class="nav"> <a href="#/topic/[[ post.topic ]]/page/1"> Назад </a> </div>
+<div class="nav"> <a href="#/topic/[[ post.topic ]]/page/1"> Назад [[ post.id ]] </a> </div>
 
 <h2> [[ post.title ]] </h2>
 
@@ -7,19 +7,28 @@
    [[ post.content ]]
 </p>
 
+<div ng-controller="CommentCtrl" ng-init="postid='post.id'">
+    [[title]]
+    <div class="col-md-6">
+        <div class="well" ng-repeat="c in comments.results" > 
+           <strong> [[c.author]] </strong>
+           <p> [[c.content]] </p>
+           <p> [[c.created_at]] </p>
+        </div>
+    </div>
 
+    <div style="clear: both"> </div>
 
-<div class="well" ng-repeat="c in comments.results" > 
-   <strong> [[c.author]] </strong>
-   <p> [[c.content]] </p>
-   <p> [[c.created_at]] </p>
+    <ul class="pagination" style="margin: 5px 0 10px 0">
+        <li ng-if="comments.previous"><a href="#post/[[post.id]][[comments.previous]]">Previous</a></li>
+        <li> <a>[[comments.current]]</a> </li>
+        <li ng-if="comments.next"><a href="#post/[[post.id]][[comments.next]]">Next</a></li>
+    </ul>
+
+    <div style="clear: both"> </div>
+
+    <div class="well col-md-6">
+         <div onload="post = '12'" ng-include="'/api/comments/form'"></div>
+    </div>
+
 </div>
-
-
-<ul class="pagination" style="margin: 5px 0 10px 0">
-    <li ng-if="comments.previous"><a href="#post/[[post.id]][[comments.previous]]">Previous</a></li>
-    <li> <a>[[comments.current]]</a> </li>
-    <li ng-if="comments.next"><a href="#post/[[post.id]][[comments.next]]">Next</a></li>
-</ul>
-
-

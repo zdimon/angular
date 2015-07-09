@@ -51,9 +51,12 @@
         return djResource('/api/page/:id/', {'id': "@id"});
     });
 
-
-
-
+// Comment resource
+  angular
+    .module('AngularApp')
+    .factory('CommentResource', function(djResource){
+        return djResource('/api/comment/:id/', {'id': "@id"});
+    });
 
 
 

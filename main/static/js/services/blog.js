@@ -28,7 +28,7 @@
 
   angular
     .module('AngularApp')
-    .factory('CommentResource',  function($http) {
+    .factory('CommentListResource',  function($http) {
             return {'comments': function(post_id,page){
                 return $http.get('/api/comment/'+post_id+'?page='+page, {});
             }}

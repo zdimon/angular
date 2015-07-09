@@ -58,12 +58,10 @@
             .state('post', {
                 url: "/post/:id/page/:page",
                 templateUrl: "/static/templates/_post.html",
-                controller: function($scope, Restangular, $stateParams, TopicResource, PostResource, CommentResource) {
+                controller: function($scope, Restangular, $stateParams, TopicResource, PostResource, CommentListResource) {
                         var post = PostResource.get({id:$stateParams.id}, function() {
                             $scope.post = post;
-                            CommentResource.comments(post.id,$stateParams.page).success(function(result) {
-                                $scope.comments = result;
-                            });                            
+                            
                         });                       
                   }
                 })         
