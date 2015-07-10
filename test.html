@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="test" >
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS</title>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.js"></script>
+  <script src="/static/library/angular-ui-router/release/angular-ui-router.min.js"></script>
+</head>
+<h1>{{ myvar }}</h1>
+
+<div ng-controller="MainCtrl">
+  <form data-ng-submit="submit()">
+      <input type="text" required data-ng-model="product.Code"/>
+      <input type="submit" value="Go" />
+  </form>
+
+    <h1>{{ myvar }}</h1>
+</div>
+ 
+
+
+    <script>
+    var app = angular.module('test', ['ui.router']);
+
+  angular
+    .module('test')
+    .config(config);
+
+  function config($urlRouterProvider, $stateProvider) {
+        $urlRouterProvider.otherwise("/");
+
+
+        $stateProvider
+            .state('index', {
+
+                url: "/",
+                templateUrl: "/_index.html",
+                controller: function($scope) {
+                    $scope.myvar = 'Hello'
+                  }
+            })
+    }
+
+    app.controller('MainCtrl', function($scope) {
+      
+      
+      $scope.submit = function () {
+        $scope.myvar = 'hi';
+      };
+    });
+
+    </script>
+
+</body>
+</html>
+

@@ -41,7 +41,7 @@ class CommentPostsList(generics.ListAPIView):
     serializer_class = CommentSerializer
     def get_queryset(self):
         post = Post.objects.get(pk = self.kwargs['post_id'])
-        return Comment.objects.filter(post=post)
+        return Comment.objects.filter(post=post).order_by('-id')
 
 
 

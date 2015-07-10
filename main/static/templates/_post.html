@@ -7,8 +7,8 @@
    [[ post.content ]]
 </p>
 
-<div ng-controller="CommentCtrl" ng-init="postid='post.id'">
-    [[title]]
+<div ng-controller="CommentCtrl">
+    [[test]]
     <div class="col-md-6">
         <div class="well" ng-repeat="c in comments.results" > 
            <strong> [[c.author]] </strong>
@@ -28,7 +28,7 @@
     <div style="clear: both"> </div>
 
     <div class="well col-md-6">
-         <div onload="post = '12'" ng-include="'/api/comments/form'"></div>
+         <div ng-include="'/api/comments/form'"></div>
     </div>
 
 </div>

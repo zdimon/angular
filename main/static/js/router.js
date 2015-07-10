@@ -62,7 +62,9 @@
                         var post = PostResource.get({id:$stateParams.id}, function() {
                             $scope.post = post;
                             
-                        });                       
+                        });       
+
+                
                   }
                 })         
          

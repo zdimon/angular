@@ -59,32 +59,26 @@ angular.module('app.controllers', [])
     })
 
 
-    .controller('CommentCtrl', function($scope, $http, CommentResource,CommentListResource,$stateParams) {
-
-            $scope.getlist = function() {
+    .controller('CommentCtrl', function($scope, $http, CommentResource,CommentListResource,$stateParams, $window) {
+                
                 CommentListResource.comments($stateParams.id,$stateParams.page).success(function(result) {
                     $scope.comments = result;
-                  
-                }); 
-            }            
+                });          
         
         $scope.submit = function() 
             {
-            var in_data = { author: $scope.author, content: $scope.content, post: $stateParams.id };  
-            r = CommentResource.save(in_data,function()
+             var in_data = { author: $scope.author, content: $scope.content, post: $stateParams.id };  
+             r = CommentResource.save(in_data,function()
                     { 
-                        console.log(r);
-                        CommentListResource.comments($stateParams.id,1).success(function(result) 
+                        CommentListResource.comments($stateParams.id,2).success(function(result) 
                             {
-                                $scope.comments = result;
-                            });   
-            
+                                $scope.setComments(result);
+                                $window.location.reload();
+                                
+                            });          
                     },function(){alert('Error!')});
-                $scope.getlist();            
             };
 
-
-            $scope.getlist();
                 
     });
 
