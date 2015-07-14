@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 
 class AuthView(FormView):
     template_name = 'main/auth-form.html'
@@ -13,13 +14,23 @@ class AuthView(FormView):
 
 
 
-@csrf_exempt
-def login(request):
+
+def login_user(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    #import pdb; pdb.set_trace()
+    try:
+        user = User.objects.get(username=username)
+        if user.check_password(password):
+            login(request,request.user)
+            out = { 'status': 0, 'message': 'ok' }
+        else:
+            out = { 'status': 1, 'message': 'Password does not match!' }
+    except:
+        out = { 'status': 1, 'message': 'User does not found!' }
+        
     context = { }
-    out = {
-        'status': 0,
-        'message': 'login ok',
-    }
+   
     return HttpResponse(json.dumps(out), content_type='application/json')   
 
 

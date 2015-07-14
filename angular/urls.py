@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^auth/$', AuthView.as_view(), name='auth'),
 
     #######API##############
-    url(r'^api/login/$', 'authentication.views.login'),
+    url(r'^api/login/$', 'authentication.views.login_user'),
     url(r'^api/logout/$', 'authentication.views.logout'),
     url(r'^registration/$', 'authentication.views.registration'),
     #########################

@@ -3,7 +3,7 @@ angular.module('app.controllers', [])
     .controller('RegistrationController', function($scope,Auth) {
         
       $scope.submit = function() {
-        Auth.register($scope.username,$scope.password).success(function(result) {
+        Auth.register($scope.model.username,$scope.model.password).success(function(result) {
             $scope.result = result 
             console.log($scope.result);
         });
@@ -14,11 +14,27 @@ angular.module('app.controllers', [])
 
     .controller('AuthController',  function($scope,Auth) {
           $scope.submit = function() {
-              Auth.login($scope.username,$scope.password, function(result){
-                  $scope.result = result   
-                  console.log($scope.result);            
-              });
+              alert($scope.username);
+              Auth.login($scope.username,$scope.password).then(function(result){
+                    
+                  $scope.rez = result.data;
+                  if($scope.rez.status==1) {
+                        $scope.isError = true; 
+                    } else {
+                        $scope.isSuccess = true; 
+                    }
+                  //$scope.$apply();
+                  console.log($scope.res);
+                   
+
+                });
+             $scope.result = { 'status':1,  'message': "User does not found!"};
+               
           }
+        //$scope.result = { 'status': 1,  'message': "User does not found!"}
+        $scope.toggleModal = function() {
+            $scope.modalShown = !$scope.modalShown;
+        }  
           
  
     })
@@ -80,8 +96,9 @@ angular.module('app.controllers', [])
             };
 
                 
-    });
+    })
 
+   
 
 
 

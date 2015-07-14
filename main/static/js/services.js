@@ -19,10 +19,10 @@
     
     
 
-    function login(username, password, callback) {
+    function login(username, password) {
       return $http.post('/api/login/', {
         username: username, password: password
-      }).success(callback);
+      });
  
     }
 

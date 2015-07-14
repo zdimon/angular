@@ -1,4 +1,4 @@
-<htm>
+<html>
 <head>
 	<title>Angular</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,8 @@
     <script src="/static/library/angular-cookies/angular-cookies.js"></script>
     <script src="/static/library/angular-sanitize/angular-sanitize.min.js"></script>
     <link href="/static/library/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-
+    <link href="/static/css/custom.css" rel="stylesheet" />
+    <link href="static/library/angular/angular-csp.css" rel="stylesheet" />
 
 
 </head>
@@ -30,10 +31,32 @@
             <ul class="nav navbar-nav" ng-controller="PageController">
                 <li ng-repeat="p in pages"><a href="#page/[[p.id]]">[[ p.title ]]</a></li>
                 <li><a href="#"  ui-sref="register">Register</a></li>        
-                <li><a href="{% url 'auth' %}" >login</a></li>
-            </ul>		
-             
-
+                
+            </ul>	
+	
+           <div ng-controller="AuthController" >
+                 <ul class="nav navbar-nav">
+                  <li> <a ng-click='toggleModal()' style="cursor: pointer">Login</a> </li>
+                 </ul>            
+                <modal-dialog show='modalShown' width='200px' height='60%'>
+                 
+                  <form ng-submit="submit()">
+                    
+                      <label for="id_username">Username</label>
+                      <input name="username" id="id_username" type="text" ng-model="username" placeholder="Username" class="form-control" required />
+                   
+                    
+                      <label for="id_password">Password</label>
+                      <input name="password" id="id_password" type="password" ng-model="password" placeholder="Password" class="form-control" required />
+                    
+                   
+                    <div class="alert alert-danger" ng-show="isError">[[ rez.message ]] </div>
+                    
+                    <button type="submit" class="btn btn-primary">Login</button>
+                  </form>
+               
+                </modal-dialog>
+            </div>
 
             </div><!--/.navbar-collapse -->
         </div>
@@ -60,6 +83,7 @@
     <script src="/static/js/services/validate.js"></script>
     <script src="/static/js/services/blog.js"></script>
     <script src="/static/js/directives/commentform.js"></script>
+    <script src="/static/js/directives/login-form.js"></script>
 
 
 </body>

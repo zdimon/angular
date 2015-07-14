@@ -14,13 +14,7 @@
 
                 url: "/",
                 templateUrl: "/static/templates/_index.html",
-                controller: function($scope, Restangular,TopicResource) {
-                    $scope.items = ["A", "List", "Of", "Items"];
-                    var baseAccounts = Restangular.all('accounts');
-                    //baseAccounts.getList().then(function(accounts) {
-                    //  $scope.allAccounts = accounts;
-                    //});
-                  }
+                
             })
             .state('register', {
                 url: "/register",
