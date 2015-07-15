@@ -13,27 +13,28 @@ angular.module('app.controllers', [])
     })
 
     .controller('AuthController',  function($scope,Auth) {
-          $scope.submit = function() {
-              alert($scope.username);
+          $scope.login = function() {
+              $scope.isLoading = true; 
               Auth.login($scope.username,$scope.password).then(function(result){
-                    
                   $scope.rez = result.data;
                   if($scope.rez.status==1) {
                         $scope.isError = true; 
                     } else {
-                        $scope.isSuccess = true; 
-                    }
-                  //$scope.$apply();
-                  console.log($scope.res);
-                   
-
-                });
-             $scope.result = { 'status':1,  'message': "User does not found!"};
-               
+                            $scope.showModalLogin = false; 
+                            $scope.isAuthenticated = true; 
+                           }
+                    $scope.isLoading = false; 
+                });             
           }
-        //$scope.result = { 'status': 1,  'message': "User does not found!"}
-        $scope.toggleModal = function() {
-            $scope.modalShown = !$scope.modalShown;
+          
+          $scope.logout = function() {
+            Auth.logout(function(result){
+                $scope.isAuthenticated = false; 
+            })
+          }        
+
+        $scope.switchModalLogin = function() {
+            $scope.showModalLogin = !$scope.showModalLogin;
         }  
           
  

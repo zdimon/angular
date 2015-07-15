@@ -16,13 +16,16 @@ class AuthView(FormView):
 
 
 def login_user(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    data = json.loads(request.body)
+    username = data['username']
+    password = data['password']
+    
     #import pdb; pdb.set_trace()
     try:
         user = User.objects.get(username=username)
         if user.check_password(password):
-            login(request,request.user)
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request,user)
             out = { 'status': 0, 'message': 'ok' }
         else:
             out = { 'status': 1, 'message': 'Password does not match!' }
@@ -34,14 +37,23 @@ def login_user(request):
     return HttpResponse(json.dumps(out), content_type='application/json')   
 
 
-@csrf_exempt
 def logout(request):
-    context = { }
+    from django.contrib.auth import logout
+    logout(request)
     out = {
         'status': 0,
         'message': 'ok',
     }
     return HttpResponse(json.dumps(out), content_type='application/json') 
+
+
+def isauth(request):
+    if request.user.is_authenticated():
+        out = { 'isauth': 1 }        
+    else:
+        out = { 'isauth': 0 }        
+    return HttpResponse(json.dumps(out), content_type='application/json') 
+
 
 
 def registration(request):

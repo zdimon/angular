@@ -36,6 +36,7 @@ urlpatterns = [
     #######API##############
     url(r'^api/login/$', 'authentication.views.login_user'),
     url(r'^api/logout/$', 'authentication.views.logout'),
+    url(r'^api/isauth/$', 'authentication.views.isauth'),
     url(r'^registration/$', 'authentication.views.registration'),
     #########################
 

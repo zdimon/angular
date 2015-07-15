@@ -12,7 +12,8 @@
     var Auth = {
       login: login,
       logout: logout,
-      register: register
+      register: register,
+      isauth: isauth,
     };
     
     return Auth;
@@ -27,9 +28,14 @@
     }
 
 
-    function logout(username, password, callback) {
+    function logout(callback) {
       return $http.post('/api/logout/').success(callback); 
     }
+
+    function isauth(callback) {
+      return $http.get('/api/isauth/').success(callback); 
+    }
+
 
 
     function register(username, password, email) {

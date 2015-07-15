@@ -10,5 +10,14 @@
     $interpolateProvider.endSymbol(']]');
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-});
+})
+
+.run(function ($rootScope, Auth) {
+
+            Auth.isauth(function(result){
+                console.log(result);
+                if(result.isauth==1) { $rootScope.isAuthenticated = true;  } else { $rootScope.isAuthenticated = false;}
+            })
+
+})
 

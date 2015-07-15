@@ -18,6 +18,27 @@ angular.module('AngularApp')
         scope.show = false;
       };
     },
-    template: "<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>" 
+    template: "<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>",
+
+        controller: ['$scope', '$http', '$window',
+          function($scope, $http, $window) {
+            $scope.loginError = false;
+            $scope.login = function () {
+ 
+              $scope.loginError = false;
+              $http.post('/auth/login', {username: $scope.username, password: $scope.password})
+                .success(function (response) {
+                  $window.location='/';
+                })
+                .error(function (err, status) {
+                  $scope.username = '';
+                  $scope.password = '';
+                  $scope.loginError = true;
+                })
+            }
+          }
+        ]
+
+ 
   };
 });
