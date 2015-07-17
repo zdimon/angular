@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from authentication.views import AuthView
+from authentication.views import AuthView, AccountFormView
 
 from rest_framework import routers, serializers, viewsets
 from main.views import IndexView, PageViewSet
@@ -32,6 +32,7 @@ router.register(r'comment', CommentViewSet)
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='home'),
     url(r'^auth/$', AuthView.as_view(), name='auth'),
+    url(r'^account/$', AccountFormView.as_view(), name='account'),
 
     #######API##############
     url(r'^api/login/$', 'authentication.views.login_user'),

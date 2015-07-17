@@ -1,0 +1,39 @@
+<div ng-controller="AuthController" >
+
+         <ul class="nav navbar-nav" >
+            <li ng-show='!isAuthenticated'><a href="#"  ui-sref="register">Register</a></li>        
+            <li ng-show='!isAuthenticated'> <a ng-click='switchModalLogin()' style="cursor: pointer">Login</a> </li>
+            
+            <li ng-show='isAuthenticated'> <a>Welcome [[ username ]]</a> </li>
+            <li ng-show='isAuthenticated'><a ng-click='profile_edit()' style="cursor: pointer">My profile</a> </li>
+            <li ng-show='isAuthenticated'> <a ng-click='logout()' style="cursor: pointer">Logout</a> </li>
+         </ul>  
+
+                <div id="openModal" class="modalDialog" ng-show='showModalLogin'>
+                	<div>          
+                         <a  ng-click='switchModalLogin()' class="close">X</a>
+                         
+                            <div class="alert alert-danger" ng-show="isError">[[ rez.message ]] </div>
+                            <div class="notice" ng-show="isLoading">Loading...</div>
+
+                          <form ng-submit="login()">
+                            
+                              <label for="id_username">Username</label>
+                              <input name="username" id="id_username" type="text" ng-model="username" placeholder="Username" class="form-control" required />
+                           
+                            
+                              <label for="id_password">Password</label>
+                              <input name="password" id="id_password" type="password" ng-model="password" placeholder="Password" class="form-control" required />
+                            
+                           
+                            
+                            
+                            <button type="submit" ng-click="login()" class="btn btn-primary">Login</button>
+                          </form>
+                       
+                        </div>   
+                    </div>
+                </div>
+
+
+</div>

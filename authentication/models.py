@@ -5,6 +5,8 @@ from django.db import models
 
 
 from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 
 class AccountManager(BaseUserManager):
@@ -32,24 +34,18 @@ class AccountManager(BaseUserManager):
 
 
 
-class Account(AbstractBaseUser):
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=40, unique=True)
-
-    first_name = models.CharField(max_length=40, blank=True)
-    last_name = models.CharField(max_length=40, blank=True)
+class Account(User):
+    about = models.CharField(max_length=40, blank=True)
+    
     tagline = models.CharField(max_length=140, blank=True)
-
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = AccountManager()
+    #objects = AccountManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['username']
 
     def __unicode__(self):
         return self.email
@@ -59,3 +55,15 @@ class Account(AbstractBaseUser):
 
     def get_short_name(self):
         return self.first_name
+
+
+def create_custom_user(sender, instance, created, **kwargs):
+    if created:
+        values = {}
+        for field in sender._meta.local_fields:
+            values[field.attname] = getattr(instance, field.attname)
+        user = Account(**values)
+        user.save()
+
+post_save.connect(create_custom_user, User)
+

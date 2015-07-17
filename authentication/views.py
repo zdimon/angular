@@ -7,6 +7,19 @@ import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 
+from django.views.generic import TemplateView
+from .forms import AccountForm
+from .models import Account
+
+class AccountFormView(TemplateView):
+    template_name = 'authentication/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountFormView, self).get_context_data(**kwargs)
+        account = Account.objects.get(pk=self.request.user.id)
+        context.update(form=AccountForm(instance=account))
+        return context
+
 class AuthView(FormView):
     template_name = 'main/auth-form.html'
     form_class = AuthForm
@@ -26,7 +39,7 @@ def login_user(request):
         if user.check_password(password):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request,user)
-            out = { 'status': 0, 'message': 'ok' }
+            out = { 'status': 0, 'message': 'ok', 'username': user.username, 'user_id': user.id }
         else:
             out = { 'status': 1, 'message': 'Password does not match!' }
     except:
@@ -49,7 +62,7 @@ def logout(request):
 
 def isauth(request):
     if request.user.is_authenticated():
-        out = { 'isauth': 1 }        
+        out = { 'isauth': 1, 'username': request.user.username, 'user_id': request.user.id }        
     else:
         out = { 'isauth': 0 }        
     return HttpResponse(json.dumps(out), content_type='application/json') 

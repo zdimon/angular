@@ -12,7 +12,7 @@ angular.module('app.controllers', [])
       };
     })
 
-    .controller('AuthController',  function($scope,Auth) {
+    .controller('AuthController',  function($rootScope,$scope,Auth) {
           $scope.login = function() {
               $scope.isLoading = true; 
               Auth.login($scope.username,$scope.password).then(function(result){
@@ -21,7 +21,7 @@ angular.module('app.controllers', [])
                         $scope.isError = true; 
                     } else {
                             $scope.showModalLogin = false; 
-                            $scope.isAuthenticated = true; 
+                            $rootScope.isAuthenticated = true; 
                            }
                     $scope.isLoading = false; 
                 });             
@@ -29,7 +29,7 @@ angular.module('app.controllers', [])
           
           $scope.logout = function() {
             Auth.logout(function(result){
-                $scope.isAuthenticated = false; 
+                $rootScope.isAuthenticated = false; 
             })
           }        
 
@@ -87,9 +87,11 @@ angular.module('app.controllers', [])
              var in_data = { author: $scope.author, content: $scope.content, post: $stateParams.id };  
              r = CommentResource.save(in_data,function()
                     { 
-                        CommentListResource.comments($stateParams.id,2).success(function(result) 
+                        CommentListResource.comments($stateParams.id,1).success(function(res) 
                             {
-                                $scope.setComments(result);
+                                //$scope.setComments(result);
+                                //console.log(res);
+                                //$scope.comments = res;
                                 $window.location.reload();
                                 
                             });          

@@ -5,6 +5,7 @@
         'djangoRESTResources',
         'ngCookies',
         'ngSanitize',
+        'ng.django.forms'
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -16,7 +17,11 @@
 
             Auth.isauth(function(result){
                 console.log(result);
-                if(result.isauth==1) { $rootScope.isAuthenticated = true;  } else { $rootScope.isAuthenticated = false;}
+                if(result.isauth==1) { 
+                        $rootScope.isAuthenticated = true;  
+                        $rootScope.username = result.username;  
+                        $rootScope.user_id = result.user_id;  
+                    } else { $rootScope.isAuthenticated = false;}
             })
 
 })
